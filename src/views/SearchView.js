@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+
 import { FlexboxGrid, Container, Content, Input, Button, Icon } from "rsuite";
+import FlexboxGridItem from "rsuite/lib/FlexboxGridItem";
 
 import "../assets/css/SearchView.css";
-import FlexboxGridItem from "rsuite/lib/FlexboxGridItem";
+
 
 class SearchView extends Component {
   render() {
     return (
-      <div className="show-grid">
+      <div className="bg">
         <Container>
           <Content>
             <FlexboxGrid
