@@ -22,6 +22,19 @@ class SearchView extends Component {
     this.state = { query: "", isLoading: false };
   }
 
+  handleSubmit = () => {
+    if (this.state.query !== "") {
+      this.setState({ isLoading: true });
+      search(this.state.query).then(response => {
+        this.setState({ isLoading: false });
+        this.props.setQuery(this.state.query);
+        this.props.setData(response);
+      });
+    } else {
+      Alert.warning("Oops, you didn't enter anything!");
+    }
+  };
+
   render() {
     return (
       <div className="bg">
@@ -39,6 +52,7 @@ class SearchView extends Component {
                   onChange={value => {
                     this.setState({ query: value });
                   }}
+                  onPressEnter={this.handleSubmit}
                 />
               </FlexboxGrid.Item>
               <FlexboxGridItem colspan={2}>
@@ -48,18 +62,7 @@ class SearchView extends Component {
                   size="lg"
                   appearance="primary"
                   style={{ marginLeft: 6 }}
-                  onClick={() => {
-                    if (this.state.query !== "") {
-                      this.setState({ isLoading: true });
-                      search(this.state.query).then(response => {
-                        this.setState({ isLoading: false });
-                        this.props.setQuery(this.state.query);
-                        this.props.setData(response);
-                      });
-                    } else {
-                      Alert.warning("Oops, you didn't enter anything!");
-                    }
-                  }}
+                  onClick={this.handleSubmit}
                 >
                   <Icon icon="search" />
                   &nbsp;&nbsp; Search
