@@ -13,47 +13,41 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 import "../assets/css/ProductCard.css";
 
-export default function ProductCard() {
+export default function ProductCard(props) {
+
+  console.log(props);
+
   return (
-    <div class="shop-card">
-      <div class="title">Nike Metcon 2</div>
-      <div class="desc">Men's training shoe</div>
+    <div className="shop-card">
+      <div className="title">{props.data.title}</div>
+      <div className="desc">{props.data.productBrand}</div>
       <CarouselProvider
         naturalSlideWidth={90}
         naturalSlideHeight={70}
         totalSlides={3}
       >
         <Slider>
-          <Slide index={0}>
-            <Image
-              src="http://www.supah.it/dribbble/012/1.jpg"
-              hasMasterSpinner="true"
-              className="img-adjust"
-            />
-          </Slide>
-          <Slide index={1}>
-            <Image
-              src="http://www.supah.it/dribbble/012/2.jpg"
-              hasMasterSpinner="true"
-              className="img-adjust"
-            />
-          </Slide>
-          <Slide index={2}>
-            <Image
-              src="http://www.supah.it/dribbble/012/3.jpg"
-              hasMasterSpinner="true"
-              className="img-adjust"
-            />
-          </Slide>
+          {Object.values(props.data.imageUrls).map((imageUrl, i=0) => (
+            <Slide index={i++}>
+              <Image
+                src={imageUrl}
+                hasMasterSpinner="true"
+                className="img-adjust"
+              />
+            </Slide>
+          ))}
         </Slider>
         <DotGroup dotNumbers="true" />
       </CarouselProvider>
 
-      <div class="cta">
-        <div class="price">$130</div>
-        <Button appearance="primary" color="cyan" className="btn">
-          Add to cart
-        </Button>
+      <div className="cta">
+        <div className="price">₹{props.data.flipkartSpecialPrice.amount}</div>
+        <a href={props.data.productUrl}>
+          <Button appearance="primary" color="cyan" className="btn">
+            Buy Now
+          </Button>
+        </a>
+        
       </div>
     </div>
   );

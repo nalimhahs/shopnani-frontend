@@ -1,12 +1,27 @@
 import React, { Component } from "react";
 
-import { FlexboxGrid, Container, Content, Input, Button, Icon } from "rsuite";
+import {
+  FlexboxGrid,
+  Container,
+  Content,
+  Input,
+  Button,
+  Icon,
+  Alert
+} from "rsuite";
 import FlexboxGridItem from "rsuite/lib/FlexboxGridItem";
+
+import search from "../services/api.js";
 
 import "../assets/css/SearchView.css";
 
-
 class SearchView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { query: "", isLoading: false };
+  }
+
   render() {
     return (
       <div className="bg">
@@ -21,17 +36,33 @@ class SearchView extends Component {
                 <Input
                   placeholder="What are you looking for?"
                   className="shadow"
+                  onChange={value => {
+                    this.setState({ query: value });
+                  }}
                 />
               </FlexboxGrid.Item>
               <FlexboxGridItem colspan={2}>
                 <Button
+                  loading={this.state.isLoading}
                   color="cyan"
                   size="lg"
                   appearance="primary"
-                  style={{ "margin-left": 6 }}
+                  style={{ marginLeft: 6 }}
+                  onClick={() => {
+                    if (this.state.query !== "") {
+                      this.setState({ isLoading: true });
+                      search(this.state.query).then(response => {
+                        this.setState({ isLoading: false });
+                        this.props.setQuery(this.state.query);
+                        this.props.setData(response);
+                      });
+                    } else {
+                      Alert.warning("Oops, you didn't enter anything!");
+                    }
+                  }}
                 >
                   <Icon icon="search" />
-                  &nbsp;&nbsp;Search
+                  &nbsp;&nbsp; Search
                 </Button>
               </FlexboxGridItem>
             </FlexboxGrid>
