@@ -10,8 +10,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    // collects data retured from the SearchView to be passed on to the ProductListView
+    // Also stores the current state through isReady
     this.state = { query: "", data: [], isReady: false };
   }
+
+  // Callback passed to searchView to set query and data
   setQuery = query => {
     this.setState({ query: query });
   };
@@ -23,6 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+      {/* Chooses either the searchView or ProductListView depending on the current state */}
         {(!this.state.isReady)? (
           <SearchView setQuery={this.setQuery} setData={this.setData} />
         ) : (

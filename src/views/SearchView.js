@@ -15,27 +15,33 @@ import search from "../services/api.js";
 
 import "../assets/css/SearchView.css";
 
+// Gets the search query from the user and collects the data from the api service
+// then passes it down to the ProductListView component
+
 class SearchView extends Component {
   constructor(props) {
     super(props);
-
+    // the isLoading state checks if the data has been fetched yet
     this.state = { query: "", isLoading: false };
   }
 
+  // Handles the clicking of the search button or pressing enter.
   handleSubmit = () => {
     if (this.state.query !== "") {
       this.setState({ isLoading: true });
       search(this.state.query).then(response => {
-        this.setState({ isLoading: false });
-        this.props.setQuery(this.state.query);
-        this.props.setData(response);
+        this.setState({ isLoading: false }); //stops the loading animation
+        this.props.setQuery(this.state.query); // returns the query to the callback function
+        this.props.setData(response); // returns the collected data to the callback function
       });
     } else {
-      Alert.warning("Oops, you didn't enter anything!");
+      // alerts the user if he/she entered nothing in the search bar
+      Alert.warning("Oops, you didn't enter anything valid!");
     }
   };
 
   render() {
+    // This is where the layout is rendered
     return (
       <div className="bg">
         <Container>

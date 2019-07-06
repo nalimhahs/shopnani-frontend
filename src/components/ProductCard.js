@@ -13,9 +13,10 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 import "../assets/css/ProductCard.css";
 
-export default function ProductCard(props) {
+// The component used for rendering out the 
+// product information passed down through props
 
-  console.log(props);
+export default function ProductCard(props) {
 
   return (
     <div className="shop-card">
