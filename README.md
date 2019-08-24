@@ -1,3 +1,5 @@
+### Note: The API key from flipkart for this project has expired. Please do add your affiliate API key in the todo-backed env variables to see it in action
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
